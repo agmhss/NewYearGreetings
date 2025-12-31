@@ -11,6 +11,7 @@
             margin: 0;
             padding: 0;
             height: 100%;
+            width: 100%;
             overflow: hidden;
             background-color: black;
             font-family: 'Arial Black', sans-serif;
@@ -34,7 +35,6 @@
             background-position: center;
             opacity: 0;
             transition: opacity 2s ease-in-out;
-            /* Adjust brightness here: 0.3 is dark, 1.0 is original */
             filter: brightness(0.5); 
         }
 
@@ -104,11 +104,13 @@
 </head>
 <body>
 
+    <div class="school-title">AGMHSS PATTEESWARAM</div>
+
     <div class="background-slideshow">
-        <div class="slide active" style="background-image: url('https://drive.google.com/file/d/155LcAIlZjMTbAJRovFt3IgecUGE-joM4?q=80&w=1974&auto=format&fit=crop');"></div>
+        <div class="slide active" style="background-image: url('https://images.unsplash.com/photo-1514525253344-a8130a4eaed6?q=80&w=2000&auto=format&fit=crop');"></div>
         <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1467810563316-b5476525c0f9?q=80&w=2069&auto=format&fit=crop');"></div>
         <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1546733080-d9d30009778b?q=80&w=1974&auto=format&fit=crop');"></div>
-        <div class="school-title">AGMHSS PATTEESWARAM</div>
+    </div>
 
     <div class="container">
         <a href="#" id="celebrate-link">Happy New Year 2026</a>
@@ -120,53 +122,56 @@
     </audio>
 
     <script>
-        // Slideshow Logic
-        const slides = document.querySelectorAll('.slide');
-        let currentSlide = 0;
+        // 1. Slideshow Logic
+        const allSlides = document.querySelectorAll('.slide');
+        let currentSlideIndex = 0;
 
         function nextSlide() {
-            if (slides.length < 2) return;
-            slides[currentSlide].classList.remove('active');
-            currentSlide = (currentSlide + 1) % slides.length;
-            slides[currentSlide].classList.add('active');
+            if (allSlides.length < 2) return;
+            allSlides[currentSlideIndex].classList.remove('active');
+            currentSlideIndex = (currentSlideIndex + 1) % allSlides.length;
+            allSlides[currentSlideIndex].classList.add('active');
         }
-        setInterval(nextSlide, 5000); // Change image every 5 seconds
+        setInterval(nextSlide, 5000); 
 
-        // Celebration Logic
+        // 2. Celebration Logic
         const link = document.getElementById('celebrate-link');
         const music = document.getElementById('bg-music');
-        let playing = false;
-        let slides = false;
+        let isPlaying = false;
 
         link.addEventListener('click', (e) => {
             e.preventDefault();
             
-            // Start Music
-            if(!playing) { 
-                music.play().catch(err => console.log("Music play blocked")); 
-                playing = true; 
+            // Start Music on first click
+            if(!isPlaying) { 
+                music.play().catch(err => console.log("Music play blocked by browser policy")); 
+                isPlaying = true; 
             }
 
             // Golden Glitter (Confetti)
-            const end = Date.now() + 3000;
+            const duration = 3000;
+            const end = Date.now() + duration;
             const colors = ['#FFD700', '#FFA500', '#FFFFFF', '#D4AF37'];
 
             (function frame() {
                 confetti({
-                    particleCount: 8,
+                    particleCount: 5,
                     angle: 60,
-                    spread: 60,
+                    spread: 55,
                     origin: { x: 0, y: 0.8 },
                     colors: colors
                 });
                 confetti({
-                    particleCount: 8,
+                    particleCount: 5,
                     angle: 120,
-                    spread: 60,
+                    spread: 55,
                     origin: { x: 1, y: 0.8 },
                     colors: colors
                 });
-                if (Date.now() < end) requestAnimationFrame(frame);
+
+                if (Date.now() < end) {
+                    requestAnimationFrame(frame);
+                }
             }());
         });
     </script>
