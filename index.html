@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2026 Celebration</title>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    
+    <style>
+        body {
+            background: radial-gradient(circle, #1a1a1a 0%, #000000 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            font-family: 'Arial Black', sans-serif;
+        }
+
+        #celebrate-link {
+            font-size: clamp(2.5rem, 10vw, 6rem);
+            text-decoration: none;
+            cursor: pointer;
+            text-align: center;
+            /* Color and Movement Animations */
+            animation: 
+                colorShift 3s linear infinite,
+                gentleBounce 2s ease-in-out infinite;
+            transition: transform 0.1s;
+            z-index: 10;
+        }
+
+        /* Color Cycling */
+        @keyframes colorShift {
+            0% { color: #FFD700; text-shadow: 0 0 30px #FFD700; }
+            33% { color: #00FFCC; text-shadow: 0 0 30px #00FFCC; }
+            66% { color: #FF00FF; text-shadow: 0 0 30px #FF00FF; }
+            100% { color: #FFD700; text-shadow: 0 0 30px #FFD700; }
+        }
+
+        @keyframes gentleBounce {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-30px) scale(1.05); }
+        }
+
+        .hint {
+            color: white;
+            margin-top: 20px;
+            font-family: sans-serif;
+            opacity: 0.6;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+        }
+    </style>
+</head>
+<body>
+
+    <a href="#" id="celebrate-link">Happy New Year 2026</a>
+    <div class="hint">Click to start the vibe</div>
+
+    <audio id="bg-music" loop>
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        const link = document.getElementById('celebrate-link');
+        const music = document.getElementById('bg-music');
+        let isMusicPlaying = false;
+
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+
+            // Start music on first click
+            if (!isMusicPlaying) {
+                music.play();
+                isMusicPlaying = true;
+                document.querySelector('.hint').style.display = 'none';
+            }
+
+            // Golden Glitter logic
+            const end = Date.now() + (4 * 1000);
+            const goldColors = ['#FFD700', '#FFFFFF', '#FFDF00', '#B8860B'];
+
+            (function frame() {
+                confetti({
+                    particleCount: 15,
+                    angle: 60,
+                    spread: 80,
+                    origin: { x: 0, y: 0.7 },
+                    colors: goldColors,
+                    ticks: 200 // Particles last longer
+                });
+                
+                confetti({
+                    particleCount: 15,
+                    angle: 120,
+                    spread: 80,
+                    origin: { x: 1, y: 0.7 },
+                    colors: goldColors,
+                    ticks: 200
+                });
+
+                if (Date.now() < end) {
+                    requestAnimationFrame(frame);
+                }
+            }());
+        });
+    </script>
+</body>
+</html>
