@@ -13,7 +13,7 @@
             height: 100%;
             width: 100%;
             overflow: hidden;
-            background-color: black;
+            background-color: #1a1a1a; /* Dark fallback color */
             font-family: 'Arial Black', sans-serif;
         }
 
@@ -24,15 +24,15 @@
             left: 0;
             width: 100%;
             height: 100%;
-            /* Using a high-quality festive golden background */
-            background-image: url('https://images.unsplash.com/photo-1467810563316-b5476525c0f9?q=80&w=2069&auto=format&fit=crop');
+            /* Reliable Direct Image Link */
+            background-image: url('https://upload.wikimedia.org/wikipedia/commons/e/e3/Fireworks_in_Heidelsheim_2011.jpg');
             background-size: cover;
             background-position: center;
-            filter: brightness(0.4); /* Darkened slightly to make text pop */
+            background-repeat: no-repeat;
+            filter: brightness(0.6); 
             z-index: -1;
         }
 
-        /* Top Title */
         .school-title {
             position: absolute;
             top: 30px;
@@ -45,7 +45,6 @@
             z-index: 20;
         }
 
-        /* Main Message Container */
         .container {
             display: flex;
             flex-direction: column;
@@ -86,10 +85,9 @@
             font-size: 1rem;
             font-family: sans-serif;
             font-weight: bold;
-            text-shadow: 1px 1px 8px black;
-            opacity: 0.9;
+            text-shadow: 2px 2px 8px black;
+            opacity: 1;
             text-transform: uppercase;
-            letter-spacing: 1px;
         }
     </style>
 </head>
@@ -115,27 +113,25 @@
         link.addEventListener('click', (e) => {
             e.preventDefault();
             
-            // Start Music
             if(!isPlaying) { 
-                music.play().catch(err => console.log("Music interaction required")); 
+                music.play().catch(err => console.log("User interaction required for audio")); 
                 isPlaying = true; 
             }
 
-            // Golden Glitter Explosion
             const duration = 3000;
             const end = Date.now() + duration;
             const colors = ['#FFD700', '#FFA500', '#FFFFFF', '#D4AF37'];
 
             (function frame() {
                 confetti({
-                    particleCount: 5,
+                    particleCount: 7,
                     angle: 60,
                     spread: 55,
                     origin: { x: 0, y: 0.8 },
                     colors: colors
                 });
                 confetti({
-                    particleCount: 5,
+                    particleCount: 7,
                     angle: 120,
                     spread: 55,
                     origin: { x: 1, y: 0.8 },
