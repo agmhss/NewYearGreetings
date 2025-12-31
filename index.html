@@ -17,35 +17,25 @@
             font-family: 'Arial Black', sans-serif;
         }
 
-        /* Background Slideshow */
-        .background-slideshow {
+        /* Permanent Background Image */
+        .background-image {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: -1;
-        }
-
-        .slide {
-            position: absolute;
-            width: 100%;
-            height: 100%;
+            /* Using a high-quality festive golden background */
+            background-image: url('https://images.unsplash.com/photo-1467810563316-b5476525c0f9?q=80&w=2069&auto=format&fit=crop');
             background-size: cover;
             background-position: center;
-            opacity: 0;
-            transition: opacity 2s ease-in-out;
-            filter: brightness(0.5); 
-        }
-
-        .slide.active {
-            opacity: 1;
+            filter: brightness(0.4); /* Darkened slightly to make text pop */
+            z-index: -1;
         }
 
         /* Top Title */
         .school-title {
             position: absolute;
-            top: 20px;
+            top: 30px;
             width: 100%;
             text-align: center;
             color: white;
@@ -67,7 +57,7 @@
         }
 
         #celebrate-link {
-            font-size: clamp(2rem, 8vw, 5rem);
+            font-size: clamp(2.5rem, 10vw, 6rem);
             text-decoration: none;
             cursor: pointer;
             text-align: center;
@@ -79,10 +69,10 @@
         }
 
         @keyframes colorShift {
-            0% { color: #FFD700; text-shadow: 0 0 20px #FFD700; }
-            33% { color: #00FFCC; text-shadow: 0 0 20px #00FFCC; }
-            66% { color: #FF00FF; text-shadow: 0 0 20px #FF00FF; }
-            100% { color: #FFD700; text-shadow: 0 0 20px #FFD700; }
+            0% { color: #FFD700; text-shadow: 0 0 30px #FFD700; }
+            33% { color: #00FFCC; text-shadow: 0 0 30px #00FFCC; }
+            66% { color: #FF00FF; text-shadow: 0 0 30px #FF00FF; }
+            100% { color: #FFD700; text-shadow: 0 0 30px #FFD700; }
         }
 
         @keyframes gentleBounce {
@@ -92,29 +82,25 @@
 
         .hint {
             color: white;
-            margin-top: 15px;
-            font-size: 0.9rem;
+            margin-top: 20px;
+            font-size: 1rem;
             font-family: sans-serif;
             font-weight: bold;
-            text-shadow: 1px 1px 5px black;
+            text-shadow: 1px 1px 8px black;
             opacity: 0.9;
             text-transform: uppercase;
+            letter-spacing: 1px;
         }
     </style>
 </head>
 <body>
 
+    <div class="background-image"></div>
     <div class="school-title">AGMHSS PATTEESWARAM</div>
-
-    <div class="background-slideshow">
-        <div class="slide active" style="background-image: url('https://images.unsplash.com/photo-1514525253344-a8130a4eaed6?q=80&w=2000&auto=format&fit=crop');"></div>
-        <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1467810563316-b5476525c0f9?q=80&w=2069&auto=format&fit=crop');"></div>
-        <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1546733080-d9d30009778b?q=80&w=1974&auto=format&fit=crop');"></div>
-    </div>
 
     <div class="container">
         <a href="#" id="celebrate-link">Happy New Year 2026</a>
-        <div class="hint">valthu seithiyai thodungal</div>
+        <div class="hint">Tap for Golden Glitter & Music</div>
     </div>
 
     <audio id="bg-music" loop>
@@ -122,19 +108,6 @@
     </audio>
 
     <script>
-        // 1. Slideshow Logic
-        const allSlides = document.querySelectorAll('.slide');
-        let currentSlideIndex = 0;
-
-        function nextSlide() {
-            if (allSlides.length < 2) return;
-            allSlides[currentSlideIndex].classList.remove('active');
-            currentSlideIndex = (currentSlideIndex + 1) % allSlides.length;
-            allSlides[currentSlideIndex].classList.add('active');
-        }
-        setInterval(nextSlide, 5000); 
-
-        // 2. Celebration Logic
         const link = document.getElementById('celebrate-link');
         const music = document.getElementById('bg-music');
         let isPlaying = false;
@@ -142,13 +115,13 @@
         link.addEventListener('click', (e) => {
             e.preventDefault();
             
-            // Start Music on first click
+            // Start Music
             if(!isPlaying) { 
-                music.play().catch(err => console.log("Music play blocked by browser policy")); 
+                music.play().catch(err => console.log("Music interaction required")); 
                 isPlaying = true; 
             }
 
-            // Golden Glitter (Confetti)
+            // Golden Glitter Explosion
             const duration = 3000;
             const end = Date.now() + duration;
             const colors = ['#FFD700', '#FFA500', '#FFFFFF', '#D4AF37'];
